@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GGwithJW's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #ff2d55;
+            --card-bg: #0a0a0a;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            min-width: 1200px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-color);
+            z-index: 1000;
+            height: var(--nav-height);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--nav-height);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #888;
+            max-width: 500px;
+            font-weight: 300;
+        }
+
+        .projects {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+
+        .project-info {
+            padding: 30px;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .project-info p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .testimonials {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            padding: 40px;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .social-link {
+            color: #888;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-container">
+            <img src="logo.png" alt="Logo" class="nav-logo">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1>GGwithJW's FiveM Development</h1>
+            <p>18-year-old passionate FiveM developer crafting innovative solutions for roleplay servers.</p>
+        </div>
+    </div>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <iframe class="project-video" src="https://www.youtube.com/embed/xQ4acRuyD6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="project-info">
+                        <h3>Dealer System - TMC Framework</h3>
+                        <p>Advanced dealer management system with real-time automatic drug sales and unique upgrades.</p>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <iframe class="project-video" src="https://www.youtube.com/embed/Ku_kFifp6K4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="project-info">
+                        <h3>Profile Hub - TMC Framework</h3>
+                        <p>Comprehensive client menu for players to easily view their character statistics as well as quick actions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Looks sick"</p>
+                    <p class="testimonial-text">"Oooo"</p>
+                    <p class="testimonial-author">Kyan (solo_capestick) @ Quantum Modifications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="social-links">
+                <a class="social-link" title="Discord"><i class="fab fa-discord"></i> jw.v2</a>
+                <a class="social-link" title="GitHub"><i class="fab fa-github"></i> GGwithJW</a>
+                <a class="social-link" title="YouTube"><i class="fab fa-youtube"></i> GGwithJW</a>
+            </div>
+        </div>
+    </section>    <script>
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
