@@ -13,6 +13,7 @@
             --accent-color: #ff2d55;
             --card-bg: #0a0a0a;
             --nav-height: 80px;
+            --banner-height: 40px;
         }
 
         * {
@@ -48,6 +49,28 @@
             z-index: 1000;
             height: var(--nav-height);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .store-banner {
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            height: var(--banner-height);
+            background: var(--accent-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        .store-banner:hover {
+            opacity: 0.9;
         }
 
         .nav-container {
@@ -86,10 +109,10 @@
         }
 
         .hero {
+            padding-top: calc(var(--nav-height) + var(--banner-height));
             height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: var(--nav-height);
         }
 
         .logo {
@@ -281,6 +304,10 @@
             </div>
         </div>
     </nav>
+
+    <a href="https://discord.gg/quantummodifications" class="store-banner">
+        NEWS: CHECK OUT QUANTUM MODIFICATIONS FOR THE LATEST GGWITHJW TMC RESOURCES
+    </a>
 
     <div class="hero">
         <div class="container">
