@@ -6,14 +6,21 @@
     <title>GGwithJW's Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+    <style>        
         :root {
-            --bg-color: #000000;
+            --bg-color: #0A0A0B;
             --text-color: #ffffff;
-            --accent-color: #ff2d55;
-            --card-bg: #0a0a0a;
+            --accent-color: #FF2D55;
+            --accent-gradient: linear-gradient(135deg, #FF2D55 0%, #FF8F71 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             --nav-height: 80px;
             --banner-height: 40px;
+            --border-radius-sm: 12px;
+            --border-radius-md: 24px;
+            --border-radius-lg: 32px;
         }
 
         * {
@@ -26,38 +33,89 @@
         html {
             scroll-behavior: smooth;
             min-width: 1200px;
-        }
-
-        body {
+        }        body {
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .vector-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .vector-blur {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .vector-blur-1 {
+            background: var(--accent-color);
+            top: -200px;
+            left: -200px;
+        }
+
+        .vector-blur-2 {
+            background: #7000FF;
+            bottom: -200px;
+            right: -200px;
+        }
+
+        .vector-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
             width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
 
-        .nav {
+        .glass-effect {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--glass-shadow);
+        }        .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-color);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
             z-index: 1000;
             height: var(--nav-height);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(10px);
+            width: calc(100% - 40px);
+            max-width: 1200px;
         }
 
         .store-banner {
             position: fixed;
-            top: var(--nav-height);
-            left: 0;
-            right: 0;
+            top: calc(var(--nav-height) + 40px);
+            left: 50%;
+            transform: translateX(-50%);
             height: var(--banner-height);
-            background: var(--accent-color);
+            background: var(--accent-gradient);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -66,7 +124,11 @@
             font-weight: 600;
             color: white;
             letter-spacing: 1px;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
+            border-radius: var(--border-radius-sm);
+            width: calc(100% - 40px);
+            max-width: 1200px;
+            box-shadow: 0 8px 32px rgba(255, 45, 85, 0.2);
         }
 
         .store-banner:hover {
@@ -106,34 +168,62 @@
 
         .mobile-menu-btn {
             display: none;
-        }
-
-        .hero {
-            padding-top: calc(var(--nav-height) + var(--banner-height));
-            height: 100vh;
+        }        .hero {
+            padding-top: calc(var(--nav-height) + var(--banner-height) + 40px);
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 11, 0) 0%, var(--bg-color) 100%);
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 2rem;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 3rem;
+            filter: drop-shadow(0 8px 32px rgba(255, 45, 85, 0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             margin-bottom: 1.5rem;
             font-weight: 600;
-            letter-spacing: -1px;
-            line-height: 1.2;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 8s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: #888;
-            max-width: 500px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
             font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
         .projects {
@@ -150,69 +240,224 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
+        }        .project-card {
+            background: var(--glass-bg);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
-        .project-card {
-            background: var(--card-bg);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            border-radius: var(--border-radius-lg);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 45, 85, 0.15);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.1;
         }
 
         .project-video {
             width: 100%;
             aspect-ratio: 16/9;
             border: none;
+            position: relative;
+            z-index: 2;
         }
 
         .project-info {
-            padding: 30px;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
         }
 
         .project-info h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: var(--accent-color);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         .project-info p {
-            color: #888;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.8;
+        }.vector-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .vector-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+
+        .vector-dots {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-image: radial-gradient(var(--accent-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.2;
         }
 
         .testimonials {
             padding: 100px 0;
             background: var(--card-bg);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .testimonial-card {
-            padding: 40px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-carousel {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .testimonial-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }        .testimonial-card {
+            min-width: 100%;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+        }
+
+        .testimonial-content {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            padding: 40px;
+            border-radius: 24px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: 30px;
+            font-size: 120px;
+            color: var(--accent-color);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
         }
 
         .testimonial-text {
             font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            color: #888;
+            font-size: 1.1rem;
+            color: #fff;
             line-height: 1.8;
+            margin-bottom: 15px;
         }
 
-        .testimonial-author {
+        .testimonial-text:last-child {
+            margin-bottom: 0;
+        }        .testimonial-author-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .author-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 24px;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 8px 16px rgba(255, 45, 85, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover .author-avatar {
+            transform: scale(1.05);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .author-name {
             color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .author-title {
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 400;
+        }        .carousel-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 45, 85, 0.1);
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 12px 40px rgba(255, 45, 85, 0.2);
+        }
+
+        .carousel-btn.prev-btn {
+            left: -100px;
+        }
+
+        .carousel-btn.next-btn {
+            right: -100px;
         }
 
         .contact {
@@ -306,7 +551,7 @@
     </nav>
 
     <a href="https://discord.gg/quantummodifications" class="store-banner">
-        NEWS: CHECK OUT QUANTUM MODIFICATIONS FOR THE LATEST GGWITHJW TMC RESOURCES
+        NEWS: CHECK OUT QUANTUM MODIFICATIONS FOR THE LATEST TMC RESOURCES
     </a>
 
     <div class="hero">
@@ -321,7 +566,6 @@
         <div class="container">
             <h2 class="section-title">Past Projects</h2>
             <div class="project-grid">
-                <!-- Project 1 -->
                 <div class="project-card">
                     <iframe class="project-video" src="https://www.youtube.com/embed/xQ4acRuyD6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div class="project-info">
@@ -329,7 +573,6 @@
                         <p>Advanced dealer management system with real-time automatic drug sales and unique upgrades.</p>
                     </div>
                 </div>
-                <!-- Project 2 -->
                 <div class="project-card">
                     <iframe class="project-video" src="https://www.youtube.com/embed/Ku_kFifp6K4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div class="project-info">
@@ -339,17 +582,53 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
+    </section>    <section id="testimonials" class="testimonials">
+        <div class="vector-bg">
+            <div class="vector-circle" style="width: 400px; height: 400px; top: -100px; left: -100px; border-color: rgba(255,45,85,0.1);"></div>
+            <div class="vector-circle" style="width: 200px; height: 200px; bottom: 50px; right: 100px; border-color: rgba(255,45,85,0.15);"></div>
+            <div class="vector-dots" style="top: 100px; right: -50px; transform: rotate(15deg);"></div>
+            <div class="vector-dots" style="bottom: -50px; left: 100px; transform: rotate(-15deg);"></div>
+        </div>
         <div class="container">
             <h2 class="section-title">Testimonials</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Looks sick"</p>
-                    <p class="testimonial-text">"Oooo"</p>
-                    <p class="testimonial-author">Kyan (solo_capestick) @ Quantum Modifications</p>
+            <div class="testimonial-carousel">
+                <button class="carousel-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="testimonial-container">
+                    <div class="testimonial-slides">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">"10/10 JW has provided excellent support and dedicated towards my on-going projects, no regrets whatsoever."</p>
+                            </div>
+                            <div class="testimonial-author-info">
+                                <img src="https://capestick.dev/logo.png" alt="Kyan" class="author-avatar">
+                                <div class="author-details">
+                                    <p class="author-name">Kyan (@solo_capestick)</p>
+                                    <p class="author-title">Quantum Modifications</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">"10/10 JW was incredibly patient and assisted my troubles as best as he could, he was polite, professional and was overall a sound bloke. Defo recommend."</p>
+                            </div>
+                            <div class="testimonial-author-info">
+                                <img src="https://kappa.lol/J_0v-O" alt="Cheeky" class="author-avatar">
+                                <div class="author-details">
+                                    <p class="author-name">Cheeky (@cheeky0161.)</p>
+                                    <p class="author-title">Cheeky Designs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <button class="carousel-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -363,7 +642,8 @@
                 <a class="social-link" title="YouTube"><i class="fab fa-youtube"></i> GGwithJW</a>
             </div>
         </div>
-    </section>    <script>
+    </section>    
+    <script>
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -383,6 +663,31 @@
                 }
             });
         });
+
+        const testimonialSlides = document.querySelector('.testimonial-slides');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.testimonial-card').length;
+
+        function updateSlidePosition() {
+            testimonialSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        });
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }, 5000);
     </script>
 </body>
 </html>
